@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.wangdasong.wx.dao.persistence.EventDaoMapper" >
+  <resultMap id="BaseResultMap" type="com.github.wangdasong.wx.dao.entity.Event" >
+      <id column="EVT_ID" property="id" />
+      <result column="EVT_NAME" property="name" />
+      <result column="EVT_START_TIME" property="startTime" />
+      <result column="EVT_CREATE_DATE" property="createDate" />
+      <result column="EVT_CREATE_USER_ID" property="createUserId" />
+      <result column="EVT_UPDATE_DATE" property="updateDate" />
+      <result column="EVT_UPDATE_USER_ID" property="updateUserId" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    EVT.ID AS EVT_ID,
+    EVT.NAME AS EVT_NAME,
+    EVT.START_TIME AS EVT_START_TIME,
+    EVT.CREATE_DATE AS EVT_CREATE_DATE,
+    EVT.CREATE_USER_ID AS EVT_CREATE_USER_ID,
+    EVT.UPDATE_DATE AS EVT_UPDATE_DATE,
+    EVT.UPDATE_USER_ID AS EVT_UPDATE_USER_ID
+  </sql>
+
+
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select   <include refid="Base_Column_List" />
+    from TAB_EVENT EVT
+    where EVT.ID= #{id}
+  </select>
+
+  <select id="getListByCondition" resultMap="BaseResultMap" parameterType="com.github.wangdasong.wx.dao.entity.Event" >
+    select 
+    <include refid="Base_Column_List" />
+	FROM TAB_EVENT EVT
+	<where>
+           <trim prefixOverrides="AND |OR ">
+               <if test="name!=null">
+                   AND EVT.USERNAME = '${name}'
+               </if>
+                <if test="startTime!=null">
+                   AND EVT.START_TIME='${startTime}'
+               </if>
+           </trim>
+       </where>
+  </select>
+
+  <delete id="deleteById" parameterType="java.lang.String" >
+    delete from SYS_USER
+    where ID = #{id}
+  </delete>
+  
+  
+
+  <insert id="save" parameterType="com.github.wangdasong.wx.dao.entity.Event" >
+    <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+        SELECT SYS_GUID() AS ID FROM DUAL
+    </selectKey>
+    insert into TAB_EVENT
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                    ID,
+            </if>
+            <if test="name != null" >
+                    NAME,
+            </if>
+            <if test="startTime != null" >
+                    START_TIME,
+            </if>
+            <if test="createDate != null" >
+                    CREATE_DATE,
+            </if>
+            <if test="createUserId != null" >
+                    CREATE_USER_ID,
+            </if>
+            <if test="updateDate != null" >
+                    UPDATE_DATE,
+            </if>
+            <if test="updateUserId != null" >
+                    UPDATE_USER_ID,
+            </if>
+            
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                    #{id},
+            </if>
+            <if test="name != null" >
+                    #{name},
+            </if>
+            <if test="startTime != null" >
+                    #{startTime},
+            </if>
+            <if test="createDate != null" >
+                    #{createDate},
+            </if>
+            <if test="createUserId != null" >
+                    #{createUserId},
+            </if>
+            <if test="updateDate != null" >
+                    #{updateDate},
+            </if>
+            <if test="updateUserId != null" >
+                    #{updateUserId},
+            </if>
+           
+        </trim>
+  </insert>
+
+  <update id="update" parameterType="com.github.wangdasong.wx.dao.entity.Event" >
+    update TAB_EVENT
+    <set>
+      <if test="name != null" >
+        NAME = #{name},
+      </if> 
+      <if test="startTime != null" >
+        START_TIME = #{startTime},
+      </if>
+      <if test="createDate != null" > 
+        CREATE_DATE = #{createDate},
+      </if> 
+      <if test="createUserId != null" > 
+        CREATE_USER_ID = #{createUserId},
+      </if> 
+      <if test="updateDate != null" > 
+        UPDATE_DATE = #{updateDate},
+      </if> 
+      <if test="updateUserId != null" > 
+        UPDATE_USER_ID = #{updateUserId},
+      </if> 
+    </set>
+    where ID = #{id}
+  </update>
+
+
+</mapper>
