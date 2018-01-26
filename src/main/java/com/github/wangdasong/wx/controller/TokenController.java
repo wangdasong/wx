@@ -56,7 +56,7 @@ public class TokenController {
     }
     @RequestMapping(value = "/getBonusInfo")
     @ResponseBody
-    public Bonus getBonusInfo(String id){
+    public WxBns getBonusInfo(String id){
         Token checkToken = tokenService.getEntityById(id);
         String wxCode = checkToken.getWxCode();
         WxBns wxBns = new WxBns();
@@ -64,7 +64,8 @@ public class TokenController {
         List<WxBns> wxBnsList = wxBnsService.getEntityListByCondition(wxBns);
         if(wxBnsList != null && wxBnsList.size() > 0){
             WxBns hadWxBns =  wxBnsList.get(0);
-            return bonusService.getEntityById(hadWxBns.getBonusId());
+            hadWxBns.setBonus(bonusService.getEntityById(hadWxBns.getBonusId()));
+            return hadWxBns;
         }
         return null;
     }
