@@ -22,7 +22,8 @@ public class Event extends BaseEntity {
     }
 
     public long getStartTimeLeft() {
-        return startTime.getTime() - (new Date()).getTime();
+        long reTimeLeft = startTime.getTime()/1000 - (new Date()).getTime()/1000;
+        return reTimeLeft < 0 ? 0 : reTimeLeft;
     }
 
     public void setStartTime(Date startTime) {

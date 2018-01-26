@@ -6,26 +6,25 @@ import com.github.wangdasong.wx.service.BonusService;
 import com.github.wangdasong.wx.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/api/bonus")
-public class BonusController {
+@RequestMapping(value = "/api/event")
+public class EventController {
 
     @Autowired
-    BonusService bonusService;
+    EventService eventService;
 
-
-    @RequestMapping(value = "/getBonusList/{eventId}")
+    @RequestMapping(value = "/getFirstEvent")
     @ResponseBody
-    public List<Bonus> getBonusList(@PathVariable(value = "eventId") String eventId){
-        Bonus queryBonus = new Bonus();
-        queryBonus.setEventId(eventId);
-        return bonusService.getEntityListByCondition(queryBonus);
+    public Event getFirstEvent(){
+        Event queryEvent = new Event();
+        List<Event> events = eventService.getEntityListByCondition(queryEvent);
+        return events.get(0);
     }
+
 
 }

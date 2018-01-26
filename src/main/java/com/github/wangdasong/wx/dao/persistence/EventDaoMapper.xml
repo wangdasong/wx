@@ -36,7 +36,7 @@
 	<where>
            <trim prefixOverrides="AND |OR ">
                <if test="name!=null">
-                   AND EVT.USERNAME = '${name}'
+                   AND EVT.NAME = '${name}'
                </if>
                 <if test="startTime!=null">
                    AND EVT.START_TIME='${startTime}'
@@ -46,7 +46,7 @@
   </select>
 
   <delete id="deleteById" parameterType="java.lang.String" >
-    delete from SYS_USER
+    delete from TAB_EVENT
     where ID = #{id}
   </delete>
   
@@ -54,7 +54,7 @@
 
   <insert id="save" parameterType="com.github.wangdasong.wx.dao.entity.Event" >
     <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
-        SELECT SYS_GUID() AS ID FROM DUAL
+        SELECT REPLACE(UUID(),'-','') FROM DUAL;
     </selectKey>
     insert into TAB_EVENT
         <trim prefix="(" suffix=")" suffixOverrides="," >
