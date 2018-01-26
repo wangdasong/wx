@@ -36,7 +36,7 @@ public class TokenController {
             return null;
         }else{
             if(checkToken.getWxCode() != null
-                    && "".equals(checkToken.getWxCode())){
+                    && !"".equals(checkToken.getWxCode())){
                 return null;
             }else{
                 checkToken.setWxCode(wxCode);
