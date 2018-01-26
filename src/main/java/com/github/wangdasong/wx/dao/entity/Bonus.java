@@ -6,10 +6,10 @@ import java.util.Date;
 
 public class Bonus extends BaseEntity {
     String name;
-    int initCount;
-    int leftCount;
+    Integer initCount;
+    Integer leftCount;
     String eventId;
-    int sort;
+    Integer sort;
 
     public String getName() {
         return name;
@@ -19,19 +19,19 @@ public class Bonus extends BaseEntity {
         this.name = name;
     }
 
-    public int getInitCount() {
+    public Integer getInitCount() {
         return initCount;
     }
 
-    public void setInitCount(int initCount) {
+    public void setInitCount(Integer initCount) {
         this.initCount = initCount;
     }
 
-    public int getLeftCount() {
+    public Integer getLeftCount() {
         return leftCount;
     }
 
-    public void setLeftCount(int leftCount) {
+    public void setLeftCount(Integer leftCount) {
         this.leftCount = leftCount;
     }
 
@@ -43,11 +43,11 @@ public class Bonus extends BaseEntity {
         this.eventId = eventId;
     }
 
-    public int getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(int sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 }
