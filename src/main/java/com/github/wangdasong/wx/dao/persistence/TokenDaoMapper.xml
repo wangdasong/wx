@@ -34,7 +34,7 @@
 	<where>
            <trim prefixOverrides="AND |OR ">
                <if test="wxCode!=null">
-                   AND TKN.NAME = '${wxCode}'
+                   AND TKN.WX_CODE = '${wxCode}'
                </if>
            </trim>
        </where>
