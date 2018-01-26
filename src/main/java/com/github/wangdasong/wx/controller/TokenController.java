@@ -1,8 +1,12 @@
 package com.github.wangdasong.wx.controller;
 
+import com.github.wangdasong.wx.dao.entity.Bonus;
 import com.github.wangdasong.wx.dao.entity.Event;
 import com.github.wangdasong.wx.dao.entity.Token;
+import com.github.wangdasong.wx.dao.entity.WxBns;
+import com.github.wangdasong.wx.service.BonusService;
 import com.github.wangdasong.wx.service.TokenService;
+import com.github.wangdasong.wx.service.WxBnsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,10 @@ public class TokenController {
 
     @Autowired
     TokenService tokenService;
+    @Autowired
+    BonusService bonusService;
+    @Autowired
+    WxBnsService wxBnsService;
 
     @RequestMapping(value = "/check")
     @ResponseBody
@@ -45,6 +53,20 @@ public class TokenController {
                 return checkToken;
             }
         }
+    }
+    @RequestMapping(value = "/getBonusInfo")
+    @ResponseBody
+    public Bonus getBonusInfo(String id){
+        Token checkToken = tokenService.getEntityById(id);
+        String wxCode = checkToken.getWxCode();
+        WxBns wxBns = new WxBns();
+        wxBns.setWxCode(wxCode);
+        List<WxBns> wxBnsList = wxBnsService.getEntityListByCondition(wxBns);
+        if(wxBnsList != null && wxBnsList.size() > 0){
+            WxBns hadWxBns =  wxBnsList.get(0);
+            return bonusService.getEntityById(hadWxBns.getBonusId());
+        }
+        return null;
     }
 
 
