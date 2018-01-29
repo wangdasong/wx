@@ -34,7 +34,8 @@ public class TokenController {
         if(tokens != null && tokens.size() > 0){
             return tokens.get(0);
         }
-        return null;
+//        return null;
+        return new Token();
     }
     @RequestMapping(value = "/update")
     @ResponseBody
