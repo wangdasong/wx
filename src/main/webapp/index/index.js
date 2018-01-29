@@ -52,8 +52,8 @@ var renderUserInfo = function(){
                     userInfo.privilege = userData.privilege;
                     userInfo.unionid = userData.unionid;
                     var expire= new Date();
-                    var expiresDate.setTime(expire.getTime() + (expires_in * 1000));
-                    $.cookie("userInfo", userInfo, { expires: expiresDate, path: '/' });
+                    //var expiresDate.setTime(expire.getTime() + (expires_in * 1000));
+                    $.cookie("userInfo", userInfo, { expires: 1, path: '/' });
                     renderUserInfo();
                 }
             });
