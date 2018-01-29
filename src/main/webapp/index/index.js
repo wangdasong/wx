@@ -66,6 +66,14 @@ function gotoSecKillPage() {
 }
 
 function gotoSecKill() {
+    wx.scanQRCode({
+        needResult: 1,
+        success: function(scanResult) {
+            var strResult = scanResult.resultStr;
+            alert(strResult);
+        }
+    });
+    /*
     var userInfo = getUserInfoFromCookies();
     var nickName = userInfo.nickname + "_" + userInfo.openid;
     $.ajax({
@@ -76,7 +84,7 @@ function gotoSecKill() {
         success: function(res){
             if(res.data == ""){
                 wx.scanQRCode({
-                    needResult: 0,
+                    needResult: 1,
                     success: function(scanResult) {
                         var strResult = scanResult.resultStr;
                         $.ajax({
@@ -100,4 +108,5 @@ function gotoSecKill() {
             }
         }
     });
+    */
 }
