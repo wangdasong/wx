@@ -67,8 +67,15 @@ function gotoSecKillPage() {
 
 function gotoSecKill() {
     alert("gotoSecKill");
+    wx.checkJsApi({
+        jsApiList : ['scanQRCode'],
+        success : function(res) {
+            alert(res);
+        }
+    });
     wx.scanQRCode({
         needResult: 1,
+        scanType : [ "qrCode"],
         success: function(scanResult) {
             var strResult = scanResult.resultStr;
             alert(strResult);
