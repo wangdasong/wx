@@ -20,6 +20,7 @@ var renderUserInfo = function(){
 }
 (function () {
     var authCode = getQueryVariable(code);
+    alert("authCode ====" + authCode);
     if(!authCode){
         window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx731f37de4b367a23&redirect_uri=https://www.wangdasong.top/index/index.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
     }
