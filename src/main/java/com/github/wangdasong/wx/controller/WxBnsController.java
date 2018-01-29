@@ -4,18 +4,31 @@ import com.github.wangdasong.wx.dao.entity.Bonus;
 import com.github.wangdasong.wx.dao.entity.WxBns;
 import com.github.wangdasong.wx.service.BonusService;
 import com.github.wangdasong.wx.service.WxBnsService;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/api/wxBns")
 public class WxBnsController {
-
+    private static HttpClient client = null;
+    static {
+        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+        cm.setMaxTotal(128);
+        cm.setDefaultMaxPerRoute(128);
+        client = HttpClients.custom().setConnectionManager(cm).build();
+    }
     @Autowired
     WxBnsService wxBnsService;
     @Autowired
@@ -54,5 +67,18 @@ public class WxBnsController {
             return bonusService.getEntityById(wxBns.getBonusId());
         }
         return null;
+    }
+    @RequestMapping(value = "/login")
+    @ResponseBody
+    public Map<String, String> login(String authCode) throws Exception {
+        String result="";
+        Map<String, String> reMap = new HashMap<String, String>();
+        HttpGet get=new HttpGet("https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx731f37de4b367a23&secret=SECRET&code=" + authCode + "&grant_type=authorization_code");
+        HttpResponse rep= client.execute(get);
+        //返回结果
+        result= EntityUtils.toString(rep.getEntity(),"utf-8");
+        System.out.println("result");
+        reMap.put("result", result);
+        return reMap;
     }
 }

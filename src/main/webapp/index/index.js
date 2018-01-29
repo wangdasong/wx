@@ -26,8 +26,12 @@ var renderUserInfo = function(){
     //WX登录
     $.ajax({
         type:"GET",
-        url:"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx731f37de4b367a23&secret=SECRET&code=" + authCode + "&grant_type=authorization_code",
+        url:"/api/wxBns/login",
+        data:{
+            authCode: authCode
+        },
         success: function(data){
+            alert(data.result);
             var access_token, expires_in, openid, scope;
             access_token = data.access_token;
             expires_in = data.expires_in;
