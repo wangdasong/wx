@@ -66,13 +66,6 @@ function gotoSecKillPage() {
 }
 
 function gotoSecKill() {
-    alert("gotoSecKill");
-    wx.checkJsApi({
-        jsApiList : ['scanQRCode'],
-        success : function(res) {
-            alert(res);
-        }
-    });
     wx.scanQRCode({
         needResult: 1,
         scanType : [ "qrCode"],
@@ -81,7 +74,6 @@ function gotoSecKill() {
             alert(strResult);
         }
     });
-    alert("gotoSecKill end");
     /*
     var userInfo = getUserInfoFromCookies();
     var nickName = userInfo.nickname + "_" + userInfo.openid;
