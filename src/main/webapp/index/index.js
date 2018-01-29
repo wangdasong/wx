@@ -22,7 +22,7 @@ var renderUserInfo = function(){
     var authCode = getQueryVariable("code");
     alert("authCode ====" + authCode);
     if(!authCode){
-        window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx731f37de4b367a23&redirect_uri=https://www.wangdasong.top/index/index.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
+        window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx731f37de4b367a23&redirect_uri=https%3a%2f%2fwww.wangdasong.top%2findex%2findex.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
     }
     //WX登录
     $.ajax({
