@@ -1,0 +1,326 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="./bootstrap.min.css">
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="./bootstrap-theme.min.css">
+<script src="./jquery.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="./bootstrap.min.js"></script>
+<script src="./bonus-list.js"></script>
+<script src="./man-list.js"></script>
+<script src="./game-list.js"></script>
+<style>
+.body{
+  background:url("./popup.jpg") no-repeat center fixed;
+  background-size:cover;
+}
+.head {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  font-size: 52px;
+  font-family:幼圆;
+  font-weight:bold;
+  color:#FFFF00;
+  line-height: 30px;
+}
+.head > p{
+  margin-top: 50px;
+  font-size: 42px;
+}
+.mainContent{
+  margin-top: 50px;
+}
+.scrollTitle{
+  font-size: 32px;
+  font-weight:bold;
+  color:#FFFFE0;
+  margin-bottom: 50px;
+}
+.scrollDiv{
+	background-color:#FF7F00;
+	min-height:300px;
+}
+.scrollDiv > ul > li{
+  font-size: 22px;
+  font-family:微软雅黑;
+  list-style-type:none;
+}
+.scrollDiv > ul > li {
+	font-size: 42px;
+}
+
+.scrollTextMid{
+	color:#FFFFF0;
+	font-weight:600;
+}
+.scrollTextNormal{
+	color:#FFFFE0;
+}
+.popup{
+  background:url("./popup.jpg") no-repeat center fixed;
+  background-size:cover;
+}
+
+.buttonDiv{
+  margin-top: 50px;
+  min-height: 100px;
+}
+.doneDiv{
+  margin-top: 150px;
+  min-height: 350px;
+}
+.doneDiv .title{
+  font-size: 32px;
+  font-weight:bold;
+  color:#FFFFE0;
+}
+.doneDiv .scrollDiv{
+	background-color:#FF7F00;
+	color:#FFFFF0;
+	font-weight:600;
+	padding-top:20px;
+	min-height:100px;
+	font-size: 32px;
+}
+</style>
+ </head>
+ <body class="body">
+<bgsound id="bgsound" src="./xyy.mp3" loop="-1"/>
+ <div class="col-xs-12 col-md-12 col-lg-12 head text-center" onclick="playMusic();">
+ 中邮供应链2018年迎新春联欢晚会
+ <p>--- </p>
+ </div>
+ <div class="col-xs-12 col-md-12 col-lg-12 mainContent">
+	<div class="col-xs-12 col-md-12 col-lg-12">
+		 <div class="col-xs-12 col-md-12 col-lg-12">
+			<div class="col-xs-3 col-md-3 col-lg-3"></div>
+			<div class="col-xs-6 col-md-6 col-lg-6">
+				<div id="manTitle" class="text-center scrollTitle">
+					中奖人员
+					<button id="stopManButton" class="btn btn-large" disabled  style="width:20%" onclick="stopMan()">停止</button>
+					<button id="startButton" class="btn btn-success btn-large" style="width:20%" onclick="startMe()">开始</button>
+				</div>
+			</div>
+			<div class="col-xs-3 col-md-3 col-lg-3"></div>
+		 </div>
+		 <div class="col-xs-12 col-md-12 col-lg-12">
+			
+			<div class="col-xs-3 col-md-3 col-lg-3"></div>
+			<div class="col-xs-6 col-md-6 col-lg-6">
+				<div id="oDivMan" class="col-xs-12 col-md-12 col-lg-12 scrollDiv" align="center">
+					<ul id="oUlMan">
+					</ul>
+				</div>
+			</div>
+			<div class="col-xs-3 col-md-3 col-lg-3"></div>
+		 </div>
+		 <div class="col-xs-6 col-md-6 col-lg-6" style="display:none">
+			<div class="col-xs-12 col-md-12 col-lg-12">
+				<div id="bonusTitle" class="col-xs-6 col-md-6 col-lg-6 text-center scrollTitle">
+					获得奖品
+					<button id="stopBonusButton" class="btn btn-large" disabled onclick="stopBonus()">停止</button>
+				</div>
+				<div class="col-xs-6 col-md-6 col-lg-6 text-center"></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-12">
+				<div id="oDivBonus" class="col-xs-6 col-md-6 col-lg-6 scrollDiv">
+					<ul id="oUlBonus">
+					</ul>
+				</div>
+				<div class="col-xs-6 col-md-6 col-lg-6"></div>
+			</div>
+		 </div>
+	 </div>
+	 <div class="col-xs-12 col-md-12 col-lg-12 doneDiv" onclick="startGame()">
+		 <div class="col-xs-3 col-md-3 col-lg-3 text-right title">
+		 </div>
+		 <div class="col-xs-6 col-md-6 col-lg-6 scrollDiv">
+			<marquee id="bingoResult">
+			</marquee>
+		 </div>
+		 <div class="col-xs-3 col-md-3 col-lg-3">
+		 </div>
+	 </div>
+ </div>
+ 
+ <!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:800px">
+        <div class="modal-content popup">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title scrollTitle" id="myModalLabel">亲，做个游戏吧~~~~</h4>
+            </div>
+            <div class="modal-body" style="height:300px">
+				<div class="col-xs-3 col-md-3 col-lg-3">
+				</div>
+				<div id="oDivGame" class="col-xs-6 col-md-6 col-lg-6 scrollDiv">
+					<ul id="oUlGame">
+					</ul>
+				</div>
+				<div class="col-xs-3 col-md-3 col-lg-3">
+				</div>
+			</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick= "stopGame()">停止</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+ </body>
+
+<script>
+
+
+var lastMusicSrc = "";
+function playMusic(){
+	var currMusicSrc = $("#bgsound").attr("src");
+	if(currMusicSrc == ""){
+		$("#bgsound").attr("src", lastMusicSrc);
+		lastMusicSrc = "";
+	}else{
+		$("#bgsound").attr("src", "");
+		lastMusicSrc = currMusicSrc;
+	}
+}
+
+
+var bingoMan = "";
+var bingoBanus = "";
+
+function initData(obj, dataList){
+	obj.html("");
+	dataList.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
+	for(var i =0; i < dataList.length; i ++ ){
+		if(dataList.length == 1){
+			obj.append("<li style='display:none'></li>");
+		}
+		obj.append("<li style='display:none'>" + dataList[i] + "</li>");
+	}
+}
+function autoScroll(obj, ul_bz){
+    $(obj).find(ul_bz).animate({}, 100, function() {
+		$(this).find("li:first").hide();
+        $(this).find("li:first").appendTo(this);
+		$(this).find("li:first").show();
+		$(this).find("li:first").removeClass("scrollTextMid");
+		$(this).find("li:first").addClass("scrollTextNormal");
+		$(this).children('li').eq(1).show();
+		$(this).children('li').eq(1).removeClass("scrollTextMid");
+		$(this).children('li').eq(1).addClass("scrollTextNormal");
+		$(this).children('li').eq(2).show();
+		$(this).children('li').eq(2).removeClass("scrollTextMid");
+		$(this).children('li').eq(2).addClass("scrollTextNormal");
+		$(this).children('li').eq(3).show();
+		$(this).children('li').eq(3).removeClass("scrollTextMid");
+		$(this).children('li').eq(3).addClass("scrollTextNormal");
+		$(this).children('li').eq(4).show();
+		$(this).children('li').eq(4).removeClass("scrollTextMid");
+		$(this).children('li').eq(4).addClass("scrollTextNormal");
+		$(this).children('li').eq(5).show();
+		$(this).children('li').eq(5).removeClass("scrollTextMid");
+		$(this).children('li').eq(5).addClass("scrollTextNormal");
+    });
+}
+function releaseResult(){
+	for(var index = 1; index <= 6; index ++ ){
+		if(bingoMan[index - 1] != ""){
+			$("#startButton").addClass("btn-success");
+			$("#startButton").attr("disabled",false); 
+			$("#bingoResult").html($("#bingoResult").html() + bingoMan[index - 1] + "&nbsp;&nbsp;");
+			if(bingoBanus == "来个游戏先" || bingoBanus == "先来个游戏"){
+				nameList[nameList.length] = bingoMan[index - 1];
+				bonusList[bonusList.length] = bingoBanus;
+			}
+		}
+	}
+}
+ 
+ function startMe(){
+	if(nameList.length == 0 || bonusList == 0){
+		alert("抽奖结束！");
+		return false;
+	}
+	bingoMan = [];
+	bingoBanus = "";
+	$("#startButton").removeClass("btn-success");
+	$("#startButton").attr("disabled",true); 
+	$("#stopManButton").attr("disabled",false);
+	$("#stopBonusButton").attr("disabled",false);
+	$("#stopManButton").addClass("btn-warning");
+	$("#stopBonusButton").addClass("btn-warning");
+	initData($("#oUlMan"), nameList);
+	//initData($("#oUlBonus"), bonusList);
+	if(nameList.length > 1){
+		intMan = self.setInterval('autoScroll("#oDivMan", "#oUlMan")', 50);
+	}else{
+		$("#oUlMan").find("li").show();
+		$("#oUlMan").find("li").addClass("scrollTextMid");
+	}
+	/*
+	if(bonusList.length > 1){
+		intBonus = self.setInterval('autoScroll("#oDivBonus", "#oUlBonus")', 40);
+	}else{
+		$("#oUlBonus").find("li").show();
+		$("#oUlBonus").find("li").addClass("scrollTextMid");
+	}*/
+ }
+ 
+ function startGame(){return;
+	bingoGame = "";
+	$('#myModal').modal('show');
+	initData($("#oUlGame"), gameList);
+	if(gameList.length > 1){
+		intGame = self.setInterval('autoScroll("#oDivGame", "#oUlGame")', 50);
+	}else{
+		$("#oUlGame").find("li").show();
+		$("#oUlGame").find("li").addClass("scrollTextMid");
+	}
+ }
+ 
+ function stopMan(){
+	$("#stopManButton").attr("disabled",true); 
+	$("#stopManButton").removeClass("btn-warning");
+	self.clearInterval(intMan);
+	//取得中奖数据
+	for(var index = 1; index <= 6; index ++ ){
+		bingoMan[index - 1] = $("#oUlMan").children('li').eq(index -1).html();
+		for(var i=0;i<nameList.length;i++){
+			if(nameList[i] == bingoMan[index - 1]){
+				nameList.splice(i,1);
+			}
+		}
+	}
+	releaseResult();
+ }
+ 
+ function stopBonus(){
+	$("#stopBonusButton").attr("disabled",true);
+	$("#stopBonusButton").removeClass("btn-warning");
+	self.clearInterval(intBonus);
+	//取得中奖数据
+	bingoBanus = $("#oUlBonus").children('li').eq(1).html();
+	for(var i=0;i<bonusList.length;i++){
+		if(bonusList[i] == bingoBanus){
+			bonusList.splice(i,1);
+		}
+	}
+	releaseResult();
+ }
+ function stopGame(){
+	self.clearInterval(intGame);
+	//取得中奖数据
+	bingoGame = $("#oUlGame").children('li').eq(1).html();
+	//$("#myModalLabel").html(bingoGame);
+ }
+ 
+$('#myModal').on('hide.bs.modal', function () {
+  // 执行一些动作...
+  self.clearInterval(intGame);
+});
+ </script>
+<script type="text/javascript"  src="./mymouse.js" id="mymouse"></script>
