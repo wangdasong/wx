@@ -49,6 +49,7 @@
                </if>
            </trim>
        </where>
+      ORDER BY BNS.SORT
   </select>
 
   <delete id="deleteById" parameterType="java.lang.String" >
