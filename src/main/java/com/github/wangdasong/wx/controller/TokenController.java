@@ -28,6 +28,11 @@ public class TokenController {
     @RequestMapping(value = "/check")
     @ResponseBody
     public Token check(String wxCode){
+        String[] wxCodeList = wxCode.split("_");
+        //前台未取得用户信息，返回空值
+        if(wxCodeList.length > 1 && "".equals(wxCodeList[1])){
+            return null;
+        }
         Token queryToken = new Token();
         queryToken.setWxCode(wxCode);
         List<Token> tokens = tokenService.getEntityListByCondition(queryToken);
