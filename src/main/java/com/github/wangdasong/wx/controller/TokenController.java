@@ -28,12 +28,9 @@ public class TokenController {
     @RequestMapping(value = "/check")
     @ResponseBody
     public Token check(String wxCode){
-        System.out.println("wxCode===" + wxCode);
         String[] wxCodeList = wxCode.split("_");
         //前台未取得用户信息，返回空值
-        System.out.println("wxCodeList.length===" + wxCodeList.length);
         if(wxCodeList.length <= 1 || "".equals(wxCodeList[1].trim())){
-            System.out.println("===============");
             return null;
         }
         Token queryToken = new Token();
@@ -48,6 +45,11 @@ public class TokenController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public Token update(String id, String wxCode){
+        String[] wxCodeList = wxCode.split("_");
+        //前台未取得用户信息，返回空值
+        if(wxCodeList.length <= 1 || "".equals(wxCodeList[1].trim())){
+            return null;
+        }
         Token checkToken = tokenService.getEntityById(id);
         if(checkToken == null){
             return null;
