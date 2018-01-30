@@ -77,7 +77,7 @@ public class WxBnsController {
         HttpResponse rep= client.execute(get);
         //返回结果
         result= EntityUtils.toString(rep.getEntity(),"utf-8");
-        System.out.println("result");
+        System.out.println("result=" + result);
         return result;
     }
 }
