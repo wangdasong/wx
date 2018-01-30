@@ -32,6 +32,7 @@ public class TokenController {
         //前台未取得用户信息，返回空值
         System.out.println("wxCode===" +wxCode);
         if(wxCodeList.length > 1 && "".equals(wxCodeList[1])){
+            System.out.println("===============");
             return null;
         }
         Token queryToken = new Token();
