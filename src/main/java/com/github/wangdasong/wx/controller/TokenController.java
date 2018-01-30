@@ -28,7 +28,7 @@ public class TokenController {
     @RequestMapping(value = "/check")
     @ResponseBody
     public Token check(String wxCode){
-        String[] wxCodeList = wxCode.split("_");
+        String[] wxCodeList = wxCode.split("//_");
         //前台未取得用户信息，返回空值
         System.out.println("wxCode===" +wxCode);
         if(wxCodeList.length > 1 && "".equals(wxCodeList[1].trim())){
