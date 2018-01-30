@@ -28,11 +28,12 @@ public class TokenController {
     @RequestMapping(value = "/check")
     @ResponseBody
     public Token check(String wxCode){
+        System.out.println("wxCode===" + wxCode);
         String[] wxCodeList = wxCode.split("_");
         //前台未取得用户信息，返回空值
         System.out.println("wxCodeList.length===" + wxCodeList.length);
         System.out.println("wxCodeList[1].trim()" + wxCodeList[1].trim() + "@@@@@");
-        if(wxCodeList.length > 1 && "".equals(wxCodeList[1].trim())){
+        if(wxCodeList.length <= 1 || "".equals(wxCodeList[1].trim())){
             System.out.println("===============");
             return null;
         }
