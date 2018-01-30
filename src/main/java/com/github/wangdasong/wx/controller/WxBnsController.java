@@ -70,15 +70,14 @@ public class WxBnsController {
     }
     @RequestMapping(value = "/login")
     @ResponseBody
-    public Map<String, String> login(String authCode) throws Exception {
-        String result="";
+    public String login(String authCode) throws Exception {
+        String result = "";
         Map<String, String> reMap = new HashMap<String, String>();
-        HttpGet get=new HttpGet("https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx731f37de4b367a23&secret=SECRET&code=" + authCode + "&grant_type=authorization_code");
+        HttpGet get=new HttpGet("https://api.weixin.qq.com/sns/jscode2session?appid=wxb21dcc8999becb04&secret=140ff0049f6874480b961059a60dbc21&js_code=" + authCode + "&grant_type=authorization_code");
         HttpResponse rep= client.execute(get);
         //返回结果
         result= EntityUtils.toString(rep.getEntity(),"utf-8");
         System.out.println("result");
-        reMap.put("result", result);
-        return reMap;
+        return result;
     }
 }
