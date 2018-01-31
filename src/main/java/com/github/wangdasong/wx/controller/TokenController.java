@@ -77,6 +77,9 @@ public class TokenController {
             WxBns hadWxBns =  wxBnsList.get(0);
             hadWxBns.setBonus(bonusService.getEntityById(hadWxBns.getBonusId()));
             return hadWxBns;
+        }else{
+            checkToken.setWxCode("");
+            tokenService.editEntity(checkToken);
         }
         return null;
     }
