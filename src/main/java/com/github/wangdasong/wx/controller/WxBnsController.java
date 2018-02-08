@@ -1,8 +1,10 @@
 package com.github.wangdasong.wx.controller;
 
 import com.github.wangdasong.wx.dao.entity.Bonus;
+import com.github.wangdasong.wx.dao.entity.Event;
 import com.github.wangdasong.wx.dao.entity.WxBns;
 import com.github.wangdasong.wx.service.BonusService;
+import com.github.wangdasong.wx.service.EventService;
 import com.github.wangdasong.wx.service.WxBnsService;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +35,18 @@ public class WxBnsController {
     @Autowired
     WxBnsService wxBnsService;
     @Autowired
+    EventService eventService;
+    @Autowired
     BonusService bonusService;
 
     @RequestMapping(value = "/secKill")
     @ResponseBody
     public Bonus secKill(String eventId, String wxCode){
+        Event event = eventService.getEntityById(eventId);
+        if(event.getStartTime().compareTo(new Date()) > 0){
+            return null;
+        }
+
         Bonus queryBonus = new Bonus();
         queryBonus.setEventId(eventId);
         List<Bonus> bonusList = bonusService.getEntityListByCondition(queryBonus);
