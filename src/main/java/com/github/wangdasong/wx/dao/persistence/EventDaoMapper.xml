@@ -33,6 +33,7 @@
     select 
     <include refid="Base_Column_List" />
 	FROM TAB_EVENT EVT
+      <!--
 	<where>
            <trim prefixOverrides="AND |OR ">
                <if test="name!=null">
@@ -43,6 +44,7 @@
                </if>
            </trim>
        </where>
+       -->
   </select>
 
   <delete id="deleteById" parameterType="java.lang.String" >
