@@ -23,6 +23,7 @@ public class EventController {
     public Event getFirstEvent(){
         Event queryEvent = new Event();
         List<Event> events = eventService.getEntityListByCondition(queryEvent);
+        System.out.println("events.get(0) ： " + events.get(0).getId());
         return events.get(0);
     }
 

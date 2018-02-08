@@ -42,6 +42,8 @@ public class WxBnsController {
     @RequestMapping(value = "/secKill")
     @ResponseBody
     public Bonus secKill(String eventId, String wxCode){
+        System.out.println("eventId : " + eventId);
+        System.out.println("wxCode : " + wxCode);
         Event event = eventService.getEntityById(eventId);
         if(event.getStartTime().compareTo(new Date()) > 0){
             return null;
